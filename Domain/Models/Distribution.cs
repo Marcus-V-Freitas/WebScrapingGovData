@@ -2,12 +2,12 @@
 
 namespace Domain.Models
 {
-    public class Distribution
+    public class Distribution : BaseEntity
     {
         [JsonProperty("@type")]
         public string Type { get; set; }
 
-        public string downloadURL { get; set; }
-        public string mediaType { get; set; }
+        public string DownloadURL { get; set; }
+        public string MediaType { get; set; }
     }
 }

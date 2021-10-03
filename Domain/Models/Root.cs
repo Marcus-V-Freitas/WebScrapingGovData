@@ -3,66 +3,66 @@ using System.Collections.Generic;
 
 namespace Domain.Models
 {
-    public class Root
+    public class Root : BaseEntity
     {
         [JsonProperty("@type")]
         public string Type { get; set; }
 
-        public string accessLevel { get; set; }
-        public List<string> bureauCode { get; set; }
-        public ContactPoint contactPoint { get; set; }
-        public List<Distribution> distribution { get; set; }
-        public string identifier { get; set; }
-        public string issued { get; set; }
-        public List<string> keyword { get; set; }
-        public string landingPage { get; set; }
-        public string license { get; set; }
-        public List<string> programCode { get; set; }
-        public Publisher publisher { get; set; }
-        public string temporal { get; set; }
+        public string AccessLevel { get; set; }
+        public IEnumerable<string> BureauCode { get; set; }
+        public ContactPoint ContactPoint { get; set; }
+        public IEnumerable<Distribution> Distribution { get; set; }
+        public string Identifier { get; set; }
+        public string Issued { get; set; }
+        public IEnumerable<string> Keyword { get; set; }
+        public string LandingPage { get; set; }
+        public string License { get; set; }
+        public IEnumerable<string> ProgramCode { get; set; }
+        public Publisher Publisher { get; set; }
+        public string Temporal { get; set; }
 
-        public string itemType { get; set; }
-        public object proxyFilter { get; set; }
-        public string culture { get; set; }
-        public string owner { get; set; }
-        public object guid { get; set; }
-        public List<object> screenshots { get; set; }
-        public string id { get; set; }
-        public int size { get; set; }
-        public List<object> appCategories { get; set; }
-        public string access { get; set; }
-        public int avgRating { get; set; }
-        public string title { get; set; }
-        public object groupDesignations { get; set; }
-        public int numRatings { get; set; }
-        public int numComments { get; set; }
-        public string snippet { get; set; }
-        public bool listed { get; set; }
-        public object largeThumbnail { get; set; }
-        public string type { get; set; }
-        public string thumbnail { get; set; }
-        public long uploaded { get; set; }
-        public List<object> industries { get; set; }
-        public string description { get; set; }
-        public List<string> tags { get; set; }
-        public List<string> typeKeywords { get; set; }
-        public List<object> extent { get; set; }
-        public string contentOrigin { get; set; }
-        public int subInfo { get; set; }
-        public int scoreCompleteness { get; set; }
-        public object banner { get; set; }
-        public object properties { get; set; }
-        public List<object> categories { get; set; }
-        public object name { get; set; }
-        public object licenseInfo { get; set; }
-        public List<object> languages { get; set; }
-        public string url { get; set; }
-        public string lastModified { get; set; }
-        public object documentation { get; set; }
-        public string modified { get; set; }
-        public object spatialReference { get; set; }
-        public string item { get; set; }
-        public int numViews { get; set; }
-        public object accessInformation { get; set; }
+        public string ItemType { get; set; }
+        public string ProxyFilter { get; set; }
+        public string Culture { get; set; }
+        public string Owner { get; set; }
+        public string Guid { get; set; }
+        public IEnumerable<string> Screenshots { get; set; }
+        public string Id { get; set; }
+        public int Size { get; set; }
+        public IEnumerable<string> AppCategories { get; set; }
+        public string Access { get; set; }
+        public int AvgRating { get; set; }
+        public string Title { get; set; }
+        public string GroupDesignations { get; set; }
+        public int NumRatings { get; set; }
+        public int NumComments { get; set; }
+        public string Snippet { get; set; }
+        public bool IEnumerableed { get; set; }
+        public string LargeThumbnail { get; set; }
+
+        public string Thumbnail { get; set; }
+        public long Uploaded { get; set; }
+        public IEnumerable<string> Industries { get; set; }
+        public string Description { get; set; }
+        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<string> TypeKeywords { get; set; }
+        public IEnumerable<string> Extent { get; set; }
+        public string ContentOrigin { get; set; }
+        public int SubInfo { get; set; }
+        public int ScoreCompleteness { get; set; }
+        public string Banner { get; set; }
+        public string Properties { get; set; }
+        public IEnumerable<string> Categories { get; set; }
+        public string Name { get; set; }
+        public string LicenseInfo { get; set; }
+        public IEnumerable<string> Languages { get; set; }
+        public string Url { get; set; }
+        public string LastModified { get; set; }
+        public string Documentation { get; set; }
+        public string Modified { get; set; }
+        public string SpatialReference { get; set; }
+        public string Item { get; set; }
+        public int NumViews { get; set; }
+        public string AccessInformation { get; set; }
     }
 }

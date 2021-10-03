@@ -7,13 +7,22 @@ namespace Data.Repository
 {
     public class ExtractGovWebDataRepository : IExtractGovWebDataRepository
     {
-        public ExtractGovWebDataRepository()
+        private readonly ExtractGovContext _govContext;
+
+        public ExtractGovWebDataRepository(ExtractGovContext govContext)
         {
+            _govContext = govContext;
         }
 
-        public Task<bool> SaveExtractGovData(List<GovInformation> informations)
+        public async Task<bool> Commit()
         {
-            throw new System.NotImplementedException();
+            return await _govContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> SaveExtractGovData(List<GovInformation> informations)
+        {
+            _govContext.GovInformations.AddRange(informations);
+            return await Commit();
         }
     }
 }

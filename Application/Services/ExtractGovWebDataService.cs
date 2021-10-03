@@ -57,7 +57,7 @@ namespace Application.Services
             {
                 string htmlResponse = await _httpClient.GetResponseHtmlAsync(link);
 
-                List<string> completeDownloadPaths = await ExtractDocumentsFiles(htmlResponse);
+                List<DownloadUrlDocument> completeDownloadPaths = await ExtractDocumentsFiles(htmlResponse);
                 Root root = await DownloadMetadataInfo(htmlResponse);
 
                 informations.Add(new GovInformation() { Root = root, CompleteDownloadPaths = completeDownloadPaths });
@@ -66,9 +66,9 @@ namespace Application.Services
             return informations;
         }
 
-        private async Task<List<string>> ExtractDocumentsFiles(string htmlResponse)
+        private async Task<List<DownloadUrlDocument>> ExtractDocumentsFiles(string htmlResponse)
         {
-            List<string> completeDownloadPaths = new();
+            List<DownloadUrlDocument> completeDownloadPaths = new();
             HtmlDocument doc = htmlResponse.CreateHtmlDocument();
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//ul[@class='resource-list']/li/a");
 
@@ -81,7 +81,7 @@ namespace Application.Services
                     string pathDownload = await DownloadFiles(link);
                     if (!string.IsNullOrEmpty(pathDownload))
                     {
-                        completeDownloadPaths.Add(pathDownload);
+                        completeDownloadPaths.Add(new() { Url = pathDownload });
                     }
                 }
             }

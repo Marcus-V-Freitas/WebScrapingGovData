@@ -18,7 +18,8 @@ namespace IoC.DependencyInjection
         {
             services.AddDbContext<ExtractGovContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                string connection = configuration.GetConnectionString("DefaultConnection");
+                options.UseMySql(connection, ServerVersion.AutoDetect(connection),
                  x => x.MigrationsAssembly(typeof(ExtractGovContext).Assembly.FullName));
             });
 

@@ -2,10 +2,10 @@
 
 namespace Domain.Models
 {
-    public class GovInformation
+    public class GovInformation : BaseEntity
     {
         public Root Root { get; set; }
 
-        public List<string> CompleteDownloadPaths { get; set; }
+        public IEnumerable<DownloadUrlDocument> CompleteDownloadPaths { get; set; }
     }
 }

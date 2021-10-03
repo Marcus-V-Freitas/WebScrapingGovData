@@ -9,6 +9,10 @@ namespace Data
         {
         }
 
+        public DbSet<DownloadUrlDocument> DownloadUrlDocuments { get; set; }
+
+        public DbSet<GovInformation> GovInformations { get; set; }
+
         public DbSet<Root> Roots { get; set; }
 
         public DbSet<ContactPoint> ContactPoints { get; set; }

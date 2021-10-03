@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IExtractGovWebDataRepository
+    public interface IExtractGovWebDataRepository : IUnitOfWork
     {
         Task<bool> SaveExtractGovData(List<GovInformation> informations);
     }
