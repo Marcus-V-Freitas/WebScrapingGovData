@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
+using System.IO;
 
 namespace WebScrapingGovData
 {
@@ -24,7 +26,23 @@ namespace WebScrapingGovData
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebScrapingGovData", Version = "v1" });
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "US Government Data Extraction",
+                        Version = "v1",
+                        Description = "Data Crawler via REST API created with ASP.NET Core",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Marcus Costa",
+                        }
+                    });
+
+                string pathApplication = PlatformServices.Default.Application.ApplicationBasePath;
+                string nameApplication = PlatformServices.Default.Application.ApplicationName;
+                string pathXmlDoc = Path.Combine(pathApplication, $"{nameApplication}.xml");
+
+                c.IncludeXmlComments(pathXmlDoc);
             });
         }
 

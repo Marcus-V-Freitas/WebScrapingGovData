@@ -1,4 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using AutoMapper;
 using Common.ExtensionMethods;
 using Domain.Interfaces;
 using Domain.Models;
@@ -16,23 +18,28 @@ namespace Application.Services
     public class ExtractGovWebDataService : IExtractGovWebDataService
     {
         private readonly string _baseUrl = "https://catalog.data.gov/";
-        private readonly IExtractGovWebDataRepository _extractGovWebData;
+        private readonly IExtractGovWebDataRepository _extractGovWebDataRepository;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IMapper _mapper;
         private readonly HttpClient _httpClient;
 
-        public ExtractGovWebDataService(IExtractGovWebDataRepository extractGovWebData, HttpClient httpClient, IHostingEnvironment hostingEnvironment)
+        public ExtractGovWebDataService(IExtractGovWebDataRepository extractGovWebDataRepository,
+                                        IHostingEnvironment hostingEnvironment,
+                                        IMapper mapper,
+                                        HttpClient httpClient)
         {
-            _extractGovWebData = extractGovWebData;
+            _extractGovWebDataRepository = extractGovWebDataRepository;
             _httpClient = httpClient;
             _hostingEnvironment = hostingEnvironment;
+            _mapper = mapper;
         }
 
-        public async Task<bool> GetGovData(string searchTerm)
+        public async Task<bool> ExtractGovFilesAndData(string searchTerm)
         {
             List<string> links = await SearchLinksRelated(searchTerm);
-            List<GovInformation> informations = await ExtractInfoGov(links);
+            List<GovInformation> informations = await ExtractInfoGov(links, searchTerm);
 
-            return await _extractGovWebData.SaveExtractGovData(informations);
+            return await _extractGovWebDataRepository.SaveExtractGovData(informations);
         }
 
         private async Task<List<string>> SearchLinksRelated(string searchTerm)
@@ -49,7 +56,7 @@ namespace Application.Services
             return links;
         }
 
-        private async Task<List<GovInformation>> ExtractInfoGov(List<string> links)
+        private async Task<List<GovInformation>> ExtractInfoGov(List<string> links, string searchTerm)
         {
             List<GovInformation> informations = new();
 
@@ -60,7 +67,7 @@ namespace Application.Services
                 List<DownloadUrlDocument> completeDownloadPaths = await ExtractDocumentsFiles(htmlResponse);
                 Root root = await DownloadMetadataInfo(htmlResponse);
 
-                informations.Add(new GovInformation() { Root = root, CompleteDownloadPaths = completeDownloadPaths });
+                informations.Add(new GovInformation(root, searchTerm, completeDownloadPaths));
             }
 
             return informations;
@@ -81,7 +88,7 @@ namespace Application.Services
                     string pathDownload = await DownloadFiles(link);
                     if (!string.IsNullOrEmpty(pathDownload))
                     {
-                        completeDownloadPaths.Add(new() { Url = pathDownload });
+                        completeDownloadPaths.Add(new(pathDownload));
                     }
                 }
             }
@@ -122,6 +129,13 @@ namespace Application.Services
                     root = JsonConvert.DeserializeObject<Root>(jsonData);
             }
             return root;
+        }
+
+        public async Task<List<GovInformationDTO>> GetExtractGovDataBySearchTerm(string searchTerm)
+        {
+            List<GovInformation> govInformations = await _extractGovWebDataRepository.GetExtractGovDataBySearchTerm(searchTerm);
+
+            return _mapper.Map<List<GovInformationDTO>>(govInformations);
         }
     }
 }

@@ -87,8 +87,14 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateCapture")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int?>("RootIdCode")
                         .HasColumnType("int");
+
+                    b.Property<string>("SearchTerm")
+                        .HasColumnType("longtext");
 
                     b.HasKey("IdCode");
 

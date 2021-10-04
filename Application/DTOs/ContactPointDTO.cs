@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace Domain.Models
+namespace Application.DTOs
 {
-    public class ContactPoint : BaseEntity
+    public class ContactPointDTO : BaseEntityDTO
     {
-        [JsonProperty("@type")]
         public string Type { get; private set; }
 
         public string Fn { get; private set; }

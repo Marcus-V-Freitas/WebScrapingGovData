@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebScrapingGovData</name>
+    </assembly>
+    <members>
+        <member name="M:WebScrapingGovData.Controllers.ExtractGovController.ExtractGovData(Application.Body.PostSearchBody)">
+            <summary>
+            Get Data based in term
+            </summary>
+            <param name="queryString"> object represent term search </param>
+            <returns> List objects saved </returns>
+        </member>
+    </members>
+</doc>

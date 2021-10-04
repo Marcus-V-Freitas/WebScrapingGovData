@@ -71,7 +71,7 @@ namespace Common.ExtensionMethods
                     if (folderTypeFile)
                         folderType = Path.GetExtension(filename).Replace(".", "");
 
-                    if (folderTypeFile && !string.IsNullOrEmpty(folderType))
+                    if (folderTypeFile && string.IsNullOrEmpty(folderType))
                         folderType = "Others";
 
                     CreateDirectoryIfNotExists(Path.Combine(pathSave, folderType));

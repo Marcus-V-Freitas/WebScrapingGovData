@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Mapping;
 using Application.Services;
 using Data;
 using Data.Repository;
@@ -28,6 +29,8 @@ namespace IoC.DependencyInjection
 
             services.AddTransient<GlobalExceptionHandlerMiddleware>();
             services.AddScoped<HttpClient>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
             return services;
         }

@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace Domain.Models
+﻿namespace Application.DTOs
 {
-    public class Distribution : BaseEntity
+    public class DistributionDTO : BaseEntityDTO
     {
-        [JsonProperty("@type")]
         public string Type { get; private set; }
 
         public string DownloadURL { get; private set; }

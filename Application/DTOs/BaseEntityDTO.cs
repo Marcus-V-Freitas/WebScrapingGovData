@@ -1,6 +1,6 @@
-﻿namespace Domain.Models
+﻿namespace Application.DTOs
 {
-    public class BaseEntity
+    public class BaseEntityDTO
     {
         public int IdCode { get; private set; }
     }

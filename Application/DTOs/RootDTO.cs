@@ -1,24 +1,22 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Domain.Models
+namespace Application.DTOs
 {
-    public class Root : BaseEntity
+    public class RootDTO : BaseEntityDTO
     {
-        [JsonProperty("@type")]
         public string Type { get; private set; }
 
         public string AccessLevel { get; private set; }
         public IEnumerable<string> BureauCode { get; private set; }
-        public ContactPoint ContactPoint { get; private set; }
-        public IEnumerable<Distribution> Distribution { get; private set; }
+        public ContactPointDTO ContactPoint { get; private set; }
+        public IEnumerable<DistributionDTO> Distribution { get; private set; }
         public string Identifier { get; private set; }
         public string Issued { get; private set; }
         public IEnumerable<string> Keyword { get; private set; }
         public string LandingPage { get; private set; }
         public string License { get; private set; }
         public IEnumerable<string> ProgramCode { get; private set; }
-        public Publisher Publisher { get; private set; }
+        public PublisherDTO Publisher { get; private set; }
         public string Temporal { get; private set; }
 
         public string ItemType { get; private set; }

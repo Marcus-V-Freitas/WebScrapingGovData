@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ExtractGovContext))]
-    [Migration("20211003222919_inicial")]
+    [Migration("20211003233822_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,8 +89,14 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateCapture")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int?>("RootIdCode")
                         .HasColumnType("int");
+
+                    b.Property<string>("SearchTerm")
+                        .HasColumnType("longtext");
 
                     b.HasKey("IdCode");
 

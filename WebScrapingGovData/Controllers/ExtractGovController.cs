@@ -1,6 +1,10 @@
-﻿using Application.Interfaces;
+﻿using Application.Body;
+using Application.DTOs;
+using Application.Interfaces;
 using Application.Query;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebScrapingGovData.Controllers
@@ -17,10 +21,36 @@ namespace WebScrapingGovData.Controllers
             _extractGovWebDataService = extractGovWebDataService;
         }
 
-        [HttpGet("")]
+        /// <summary>
+        /// Extract all documents and data base in term
+        /// </summary>
+        /// <param name="searchBody"> object represent term search </param>
+        /// <returns> List gov informations saved </returns>
+        [HttpPost("ExtractGovData")]
+        public async Task<IActionResult> ExtractGovData([FromBody] PostSearchBody searchBody)
+        {
+            List<GovInformationDTO> govInformationDTOs = new();
+
+            if (await _extractGovWebDataService.ExtractGovFilesAndData(searchBody.SearchTerm))
+                govInformationDTOs = await _extractGovWebDataService.GetExtractGovDataBySearchTerm(searchBody.SearchTerm);
+
+            return Ok(govInformationDTOs);
+        }
+
+        /// <summary>
+        /// Get Data based in term
+        /// </summary>
+        /// <param name="queryString"> object represent term search </param>
+        /// <returns> List gov informations saved </returns>
+        [HttpGet("GetGovData")]
         public async Task<IActionResult> GetGovData([FromQuery] GetSearchQueryString queryString)
         {
-            return Ok(await _extractGovWebDataService.GetGovData(queryString.SearchTerm));
+            List<GovInformationDTO> govInformationDTOs = await _extractGovWebDataService.GetExtractGovDataBySearchTerm(queryString.SearchTerm);
+
+            if (!govInformationDTOs.Any())
+                return NotFound("No information search");
+
+            return Ok(govInformationDTOs);
         }
     }
 }
